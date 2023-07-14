@@ -1,12 +1,12 @@
-from django.shortcuts import render
 
-from .models import Provider, ServiceArea
-from .serializers import ProviderSerializer, ServiceAreaSerializer
 from rest_framework.views import APIView
 from rest_framework import authentication
 from rest_framework import status
 from rest_framework.response import Response
 from django.contrib.gis.geos import Point
+
+from suppliersarea.models import ServiceArea
+from suppliersarea.serializers import ServiceAreaSerializer
 
 
 class FindAreaView(APIView):

@@ -1,9 +1,11 @@
 from django.contrib import admin
 from django.contrib.gis.admin import GISModelAdmin
-from .models import Provider, ServiceArea
+from suppliersarea.models import Provider, ServiceArea
 
 admin.site.register(Provider)
-#admin.site.register(ServiceArea)
+# admin.site.register(ServiceArea)
+
+
 @admin.register(ServiceArea)
 class ServiceAreaAdmin(GISModelAdmin):
-    list_display = ('id', 'name', 'price','provider', 'information')
+    list_display = ('id', 'name', 'price', 'provider', 'information')

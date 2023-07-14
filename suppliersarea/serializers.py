@@ -1,5 +1,5 @@
-from .models import Provider, ServiceArea
 from rest_framework import serializers
+from suppliersarea.models import Provider, ServiceArea
 
 
 class ProviderSerializer(serializers.ModelSerializer):

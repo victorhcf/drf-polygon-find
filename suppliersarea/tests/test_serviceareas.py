@@ -1,14 +1,8 @@
 from rest_framework.test import APITestCase
+from django.contrib.gis.geos import Polygon
+
 from suppliersarea.login import login
 from suppliersarea.models import Provider, ServiceArea
-from django.contrib.gis.geos import Polygon, Point
-
-#class ServiceArea(models.Model):
-#    name = models.CharField(max_length=100)
-#    price = models.DecimalField(max_digits=10, decimal_places=2)
-#    provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
-#    information = models.PolygonField()
-
 
 
 class BasicTest(APITestCase):
@@ -19,21 +13,21 @@ class BasicTest(APITestCase):
         self.client_object, self.user = login(self, 'dummy')
         self.content_type = 'application/json'
 
-        galt = Provider.objects.create(name='john galt', 
-                                email='johngalt@email.com', phonenumber='4411', 
-                                language='eng', currency='USD')
-        
-        poly_newyork = Polygon(((-74.83588358985594, 41.23082234798603), (-74.85550595612166, 40.41414448392849), (-72.3111391303344, 40.38425776292436), (-72.29151676406867, 41.19145795634718), (-74.83588358985594, 41.23082234798603)))
-        poly_wonderland = Polygon(((-35.37777481283594, -5.719169558067793), (-35.3998765128905, -5.966521746780532), (-35.014201846938185, -5.969819032478712), (-35.01972727195182, -5.719169558067793), (-35.37777481283594, -5.719169558067793)))
-        
-        ServiceArea.objects.create(name='area newyork', 
-                                price='10', provider=galt, information=poly_newyork)
+        galt = Provider.objects.create(name='john galt',
+                                       email='johngalt@email.com', phonenumber='4411',
+                                       language='eng', currency='USD')
 
-        ServiceArea.objects.create(name='area wonderland', 
-                                price='1', provider=galt, information=poly_wonderland)
-        
-        
-        
+        poly_newyork = Polygon(((-74.83588358985594, 41.23082234798603), (-74.85550595612166, 40.41414448392849), (-72.3111391303344,
+                               40.38425776292436), (-72.29151676406867, 41.19145795634718), (-74.83588358985594, 41.23082234798603)))
+        poly_wonderland = Polygon(((-35.37777481283594, -5.719169558067793), (-35.3998765128905, -5.966521746780532),
+                                  (-35.014201846938185, -5.969819032478712), (-35.01972727195182, -5.719169558067793), (-35.37777481283594, -5.719169558067793)))
+
+        ServiceArea.objects.create(name='area newyork',
+                                   price='10', provider=galt, information=poly_newyork)
+
+        ServiceArea.objects.create(name='area wonderland',
+                                   price='1', provider=galt, information=poly_wonderland)
+
     def test_create_servicearea(self):
         poly_losangeles = """{
             "type": "Polygon",
@@ -47,11 +41,11 @@ class BasicTest(APITestCase):
                 ]
             ]
         }"""
-        
-        joe = Provider.objects.create(name='joe biden', 
-                                email='joebiden@email.com', phonenumber='6688', 
-                                language='por', currency='BRL')
-        data={
+
+        joe = Provider.objects.create(name='joe biden',
+                                      email='joebiden@email.com', phonenumber='6688',
+                                      language='por', currency='BRL')
+        data = {
             "name": "los angeles",
             "price": 20,
             "provider": joe.id,
@@ -67,7 +61,6 @@ class BasicTest(APITestCase):
         self.assertEqual(response.data[0].get('name'), 'area newyork')
         self.assertEqual(len(response.data), 2)
 
-
     def test_retrieveone_v(self):
         response = self.client_object.get('/serviceareas/1/')
         self.assertEqual(response.status_code, 200)
@@ -78,7 +71,8 @@ class BasicTest(APITestCase):
         dict_newyork = response_retrieving.data
         dict_newyork['name'] = 'area hawaii'
 
-        response = self.client_object.put('/serviceareas/1/', dict_newyork, content_type='application/json')
+        response = self.client_object.put(
+            '/serviceareas/1/', dict_newyork, content_type='application/json')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data.get('name'), 'area hawaii')
 
@@ -96,7 +90,7 @@ class BasicTest(APITestCase):
 
 def print_response(resp):
     print('type: ')
-    print( dir( resp) )
+    print(dir(resp))
     print('\n\n json .. \n\n')
     print(resp.json())
 
