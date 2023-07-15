@@ -16,6 +16,3 @@ class ServiceArea(models.Model):
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
     information = models.PolygonField()
     
-    def __str__(self):
-        return self.name
-    
