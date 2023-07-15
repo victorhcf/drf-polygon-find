@@ -1,0 +1,72 @@
+{# templates/admin/custom_page.html #}
+
+{% extends 'admin/base_site.html' %}
+
+{% block pagination %}{% endblock %}
+{% block filters %}{% endblock filters %}
+{% block object-tools %}{% endblock object-tools %}
+{% block search %}{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">Home</a>
+    {% if page_name %} &rsaquo; {{ page_name }}{% endif %}
+</div>
+{% endblock %}
+
+{% block content %}
+
+<h2>Find proviers by coordinates</h2>
+
+<form action="/custom_page/" method="post">
+    <label for="latitude">latitude:</label>
+    <input type="text" id="latitude" name="latitude" value=""><br>
+    <label for="longitude">longitude:</label>
+    <input type="text" id="longitude" name="longitude" value=""><br><br>
+    <input type="submit" value="Submit">
+</form>
+
+{% if areas %}
+<div>
+    <h3>
+        List of Providers for this Location:
+    </h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Provider Name</th>
+                <th>Provider email</th>
+                <th>phone number</th>
+                <th>Language</th>
+                <th>Currency</th>
+                <th>Area Name</th>
+                <th>Area Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in areas %}
+            <tr>
+                <td>{{x.provider.name}}</td>
+                <td>{{x.provider.email}}</td>
+                <td>{{x.provider.phonenumber}}</td>
+                <td>{{x.provider.language}}</td>
+                <td>{{x.provider.currency}}</td>
+                <td>{{x.name}}</td>
+                <td>{{x.price}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+
+<h4>
+    Tips for testing
+</h4>
+There are areas registered in region of New York (2) and Hawaii (3)
+You can use any points in this region to see proper results. Or either you can add new ones as you wish.
+<br />Points samples for New York: 40.784946, -73.968109 / 41.086562, -74.052541<br />
+Points samples for Hawaii: 21.358980, -158.068550 / 19.612392, -155.034515<br />
+
+{% endblock content %}

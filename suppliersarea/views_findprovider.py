@@ -1,4 +1,4 @@
-
+from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import authentication
 from rest_framework import status
@@ -7,7 +7,6 @@ from django.contrib.gis.geos import Point
 
 from suppliersarea.models import ServiceArea
 from suppliersarea.serializers import ServiceAreaSerializer
-
 
 class FindAreaView(APIView):
     """
@@ -26,3 +25,5 @@ class FindAreaView(APIView):
         serializer = ServiceAreaSerializer(areas, many=True)
         return Response(serializer.data,
                         status=status.HTTP_200_OK)
+
+
