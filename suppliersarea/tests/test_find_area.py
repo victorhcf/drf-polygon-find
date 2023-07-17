@@ -28,7 +28,6 @@ class BasicTest(APITestCase):
                                    price='1', provider=galt, information=poly_wonderland)
 
     def test_find_point_in_wonderland(self):
-        # wonderland_point = Point(-5.866185, -35.184486)
         wonderland_point = {
             'lat': -5.866185,
             'lng': -35.184486
@@ -38,7 +37,6 @@ class BasicTest(APITestCase):
         self.assertEqual(response.data[0].get('name'), 'area wonderland')
 
     def test_find_point_in_newyork(self):
-        # wonderland_point = Point(-5.866185, -35.184486)
         newyork_point = {
             'lat': 40.784946,
             'lng': -73.968109
