@@ -1,0 +1,316 @@
+openapi: 3.0.3
+info:
+  title: Find Provider
+  version: 1.0.0
+  description: Mozio - A tool to help Mozio to find the best provider for each location.
+paths:
+  /custom_page/:
+    post:
+      operationId: custom_page_create
+      description: |-
+        This endpoint is created to allow easy testing the search endpoint using admin form custom view.
+        It gets the location parameters and sends a request to the endpoint to find location.
+
+        **Template:**
+
+        :template:`templates/admin/custom_page.html`
+
+        **Parameters:**
+        latitude
+        longitude
+
+        description: This API deletes/uninstalls a device.
+        parameters:
+        - name: name
+            type: string
+            required: true
+            location: form
+        - name: bloodgroup
+            type: string
+            required: true
+            location: form
+        - name: birthmark
+            type: string
+            required: true
+            location: form
+      tags:
+      - custom_page
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /findarea/:
+    post:
+      operationId: findarea_create
+      description: |-
+        This endpoint is created to allow easy testing the search endpoint using admin form custom view.
+        It gets the location parameters and sends a request to the endpoint to find location.
+
+        **Template:**
+
+        :template:`templates/admin/custom_page.html`
+      tags:
+      - findarea
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /providers/:
+    get:
+      operationId: providers_retrieve
+      description: 'For listing out the posts, HTTP method: GET'
+      tags:
+      - providers
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+          description: ''
+    post:
+      operationId: providers_create
+      description: 'For creating a new post, HTTP method: POST'
+      tags:
+      - providers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Provider'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Provider'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Provider'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+          description: ''
+  /providers/{id}/:
+    get:
+      operationId: providers_retrieve_2
+      description: 'For listing out a single post, HTTP method: GET'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - providers
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: providers_update
+      description: 'For updating an existing post, HTTP method: PUT'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - providers
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: providers_destroy
+      description: 'For deleting a provider, HTTP method: DELETE'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - providers
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /serviceareas/:
+    get:
+      operationId: serviceareas_retrieve
+      description: 'For listing out the posts, HTTP method: GET'
+      tags:
+      - serviceareas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceArea'
+          description: ''
+    post:
+      operationId: serviceareas_create
+      description: 'For creating a new post, HTTP method: POST'
+      tags:
+      - serviceareas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceArea'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ServiceArea'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ServiceArea'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceArea'
+          description: ''
+  /serviceareas/{id}/:
+    get:
+      operationId: serviceareas_retrieve_2
+      description: 'For listing out a single post, HTTP method: GET'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - serviceareas
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: serviceareas_update
+      description: 'For updating an existing post, HTTP method: PUT'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - serviceareas
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: serviceareas_destroy
+      description: 'For deleting a ServiceArea, HTTP method: DELETE'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - serviceareas
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Provider:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        email:
+          type: string
+          format: email
+          maxLength: 70
+        phonenumber:
+          type: string
+          maxLength: 15
+        currency:
+          type: string
+          maxLength: 3
+      required:
+      - currency
+      - email
+      - id
+      - name
+      - phonenumber
+    ServiceArea:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        provider:
+          type: integer
+        information:
+          type: string
+      required:
+      - id
+      - information
+      - name
+      - price
+      - provider
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"

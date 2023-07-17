@@ -9,6 +9,7 @@ from rest_framework.generics import get_object_or_404
 from suppliersarea.serializers import ServiceAreaSerializer
 from .models import ServiceArea
 
+
 class ServiceAreaListView(APIView):
     """
     API endpoint that allows ServiceArea to be viewed or edited.
@@ -17,7 +18,7 @@ class ServiceAreaListView(APIView):
     serializer_class = ServiceAreaSerializer
 
     def get(self, request, format=None) -> Response:
-        """ For listing out the posts, HTTP method: GET """
+        """ For listing out the ServiceArea, HTTP method: GET """
         serviceAreas = ServiceArea.objects.all()
         # Passing the queryset through the serializer
         serializer = ServiceAreaSerializer(serviceAreas, many=True)
@@ -25,7 +26,7 @@ class ServiceAreaListView(APIView):
                         status=status.HTTP_200_OK)
 
     def post(self, request, format=None) -> Response:
-        """ For creating a new post, HTTP method: POST """
+        """ For creating a new ServiceArea, HTTP method: POST """
         serializer = ServiceAreaSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -49,7 +50,7 @@ class ServiceAreaDetailView(APIView):
                         status=status.HTTP_200_OK)
 
     def put(self, request, pk=None, format=None):
-        """ For updating an existing post, HTTP method: PUT """
+        """ For updating an existing ServiceArea, HTTP method: PUT """
         serviceArea = get_object_or_404(ServiceArea.objects.all(), pk=pk)
         serializer = ServiceAreaSerializer(serviceArea, data=request.data)
         if serializer.is_valid(raise_exception=True):

@@ -86,16 +86,3 @@ class BasicTest(APITestCase):
 
         response_retrieving2 = self.client_object.get('/serviceareas/1/')
         self.assertEqual(response_retrieving2.status_code, 404)
-
-
-def print_response(resp):
-    print('type: ')
-    print(dir(resp))
-    print('\n\n json .. \n\n')
-    print(resp.json())
-
-    print('\n\n status_code .. \n\n')
-    print(resp.status_code)
-
-    print('\n\n data .. \n\n')
-    print(resp.data)
